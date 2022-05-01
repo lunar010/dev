@@ -1,25 +1,11 @@
 import requests
-from flask import Flask, request, Response, render_template
-#from flask_limiter import Limiter
-#from flask_limiter.util import get_remote_address
+from flask import Flask, request, Response
 web = Flask(__name__)
-
-#limiter = Limiter(
- #   web,
- #   key_func=get_remote_address,
- #   default_limits=["500 per day"]
-#)
 
 server_domain = 'cloudlayer.kro.kr'
 
-#@web.errorhandler(429)
-#def ratelimit_handler(e):
- # return render_template('rate.html')
-
 @web.route('/', defaults={'path': ''})
 @web.route('/<path:path>')
-#@limiter.limit("20 per minute")
-#@limiter.limit("1 per second")
 def main(path):
     url_splited = request.url.split("/")[2]
     if url_splited == server_domain:
@@ -38,6 +24,3 @@ def main(path):
                  if name.lower() not in excluded_headers]
         response = Response(resp.content, resp.status_code, headers)
         return response
-
-if __name__ == '__main__':
-    web.run(debug=True)
