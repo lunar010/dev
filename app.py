@@ -40,4 +40,4 @@ def main(path):
         return response
 
 if __name__ == '__main__':
-    web.run()
+    web.run(debug=True)
